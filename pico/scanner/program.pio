@@ -1,0 +1,100 @@
+.program move
+
+load:
+    pull noblock
+    mov x, osr
+    jmp x--, save
+    mov x, y
+    mov y, osr
+    jmp high
+
+high:
+    set pins, 1
+    jmp x--, high
+    mov x, y
+    jmp low
+
+low:
+    set pins, 0
+    jmp x--, low
+    mov x, y
+    jmp load
+
+save:
+    mov y, osr
+    mov x, osr
+    jmp high
+
+
+.program endstop1
+
+loop:
+    wait 1 gpio 6
+    set pins, 1
+    wait 0 gpio 6
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+
+    wait 1 gpio 6
+    set pins, 0
+    wait 0 gpio 6
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    jmp loop
+
+
+.program endstop2
+
+loop:
+    wait 1 gpio 7
+    set pins, 1
+    wait 0 gpio 7
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+
+    wait 1 gpio 7
+    set pins, 0
+    wait 0 gpio 7
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+
+    jmp loop
+
+
+.program hdd
+
+init:
+    pull
+    set pins, 0b00
+    set pins, 0b01
+    jmp high_low
+
+high_low:
+    set pins, 0b10
+    mov x, osr
+    pull
+    set pins, 0b00
+    jmp wait1
+
+low_high:
+    set pins, 0b01
+    mov x, osr
+    pull
+    set pins, 0b00
+    jmp wait2
+
+wait1:
+    jmp x--, wait1
+    jmp low_high
+
+wait2:
+    jmp x--, wait2
+    jmp high_low
