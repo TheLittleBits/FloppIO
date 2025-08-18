@@ -1,0 +1,4 @@
+Ignored/
+.vscode
+Floppio.code-workspace
+__pycache__
