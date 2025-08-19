@@ -14,7 +14,10 @@ def _get_drum_track(midifile):
         if track_index != None:
             break
     
-    return tracks[track_index]
+    if track_index == None:
+        return None
+    else:
+        return tracks[track_index]
 
 def arrange_drums(midifile):
 
@@ -22,6 +25,10 @@ def arrange_drums(midifile):
     HDDs always have to play something. '''
 
     drum_track = _get_drum_track(midifile)
+
+    if drum_track == None:
+        return midifile
+
     all_drums = []
 
     for msg in drum_track:
