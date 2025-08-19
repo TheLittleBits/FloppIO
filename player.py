@@ -7,7 +7,7 @@
 #                | |   | |               
 #                |_|   |_|               
 #
-#           Made by Cosmin Piriu
+#           Made by Cosmin Pirciu
 #
 #
 # FDD, HDD and scanner music using MIDI Files
