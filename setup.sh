@@ -8,6 +8,6 @@ cd build
 git clone https://github.com/TheLittleBits/FloppIO.git
 mv FloppIO/*.py ./
 mkdir midi
-mv FloppIO/*.mid midi/
+mv FloppIO/midi/*.mid midi/
 sudo nano /boot/firmware/config.txt
 sudo reboot
