@@ -81,16 +81,11 @@ void init_pio() {
     endstop1_program_init(pio0, 1, 3);
     move_program_init(pio0, 2, 4);
     endstop2_program_init(pio0, 3, 5);
-    // Enable the scanner programs
-    pio_sm_set_enabled(pio0, 0, true);
-    pio_sm_set_enabled(pio0, 1, true);
-    pio_sm_set_enabled(pio0, 2, true);
-    pio_sm_set_enabled(pio0, 3, true);
 }
 
-void enable_hdds(bool value) {
-    /* If 'value' is true, the HDDs will be enabled. This
-    function's purpose is to power. */
+void enable_pio(bool value) {
+    /* If 'value' is true, the HDDs and scanners will be enabled. This
+    function's purpose is to save power. */
 
     if (value == true) {
         // Load the HDD program into the state machine
@@ -108,6 +103,11 @@ void enable_hdds(bool value) {
         pio_sm_set_enabled(pio1, 1, true);
         pio_sm_set_enabled(pio1, 2, true);
         pio_sm_set_enabled(pio1, 3, true);
+        // Enable the scanner programs
+        pio_sm_set_enabled(pio0, 0, true);
+        pio_sm_set_enabled(pio0, 1, true);
+        pio_sm_set_enabled(pio0, 2, true);
+        pio_sm_set_enabled(pio0, 3, true);
     } else if (value == false) {
         // Disable the HDDs
         pio_sm_set_enabled(pio1, 0, false);
@@ -123,6 +123,11 @@ void enable_hdds(bool value) {
         gpio_init(19); gpio_set_dir(19, true); gpio_put(19, 0);
         gpio_init(20); gpio_set_dir(20, true); gpio_put(20, 0);
         gpio_init(21); gpio_set_dir(21, true); gpio_put(21, 0);
+        // Disable the scanner programs
+        pio_sm_set_enabled(pio0, 0, false);
+        pio_sm_set_enabled(pio0, 1, false);
+        pio_sm_set_enabled(pio0, 2, false);
+        pio_sm_set_enabled(pio0, 3, false);
     }
 }
 
@@ -152,16 +157,21 @@ void set_frequency(int index, int freq) {
 
 void hdd_click(int index) {
     if (index >= 0 && index <= 3) {
-        pio_sm_put_blocking(pio1, index, HDD_CLICK_DELAY); // Deblock the according pio program so it toggles the H-bridge.
-        // You can't put a fixed value in a PIO register, so I have to send the delay value every click
+        // Deblock the according pio program so it toggles the H-bridge.
+        pio_sm_put_blocking(pio1, index, HDD_CLICK_DELAY);
+        // You can't put a fixed value in a PIO register, so I have to
+        // send the delay value every click
     }
 }
 
 void run_action(int action, int value) {
-    // Each pico has it's own action table. We use 10 and 11 for the scanners and 126 for the HDDs. 0 - 9 are reserved for parameters and auxiliary actions
+    /*Each pico has it's own action table. We use 10 and 11
+    for the scanners and 126 for the HDDs. 0 - 9 are reserved
+    for parameters and auxiliary actions. */
+
     switch (action) {
         case 0: break; // Reset the FDDs
-        case 1: enable_hdds(value); break; // Enable the HDDs
+        case 1: enable_pio(value); break; // Enable the HDDs and the scanner programs
         case 2: break;
         case 3: break;
         case 4: break;
@@ -177,9 +187,11 @@ void run_action(int action, int value) {
 }
 
 int main() {
-
     // Call all startup functions
-    stdio_usb_init(); // Only because the ability of updating software without entering BOOTSEL mode manually
+
+    /*Init USB for the ability of updating software
+    without entering BOOTSEL mode manually*/
+    stdio_usb_init(); 
     init_uart();
     init_pio();
     init_sio();
