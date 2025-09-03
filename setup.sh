@@ -8,7 +8,7 @@ cd floppio
 git clone https://github.com/TheLittleBits/FloppIO.git
 mv FloppIO/*.py ./
 mkdir midi
-mv FloppIO/midi/*.mid midi/
+mv FloppIO/example-midi/*.mid midi/
 mv FloppIO/pico/floppy/floppy.elf ./
 mv FloppIO/pico/scanner/scanner.elf ./
 rm FloppIO/ -rf
