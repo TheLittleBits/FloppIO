@@ -1,4 +1,6 @@
 Ignored/
+Tests/
+midi/
 .vscode
 Floppio.code-workspace
 __pycache__
