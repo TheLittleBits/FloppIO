@@ -67,7 +67,7 @@ The breadboard inputs are connected to the pico using this pinout:
 
 <img height="342" alt="Pico1-pinout" src="https://github.com/user-attachments/assets/41aa6a22-49f7-4194-bd79-bce72808daba" />
 
-Connect the breadboard outputs to the floppy drive inputs using this scheme:
+Connect the breadboard outputs to the floppy drive inputs using this diagram:
 <img height="100" alt="FDD_input" src="https://github.com/user-attachments/assets/5bc2715f-4902-454e-80cc-3cf02a589119" />
 
 You can use more drives if you add more transistors, wires and resistors. Each of them needs 3 of those "level shifters", so the images above only controls one drive.
@@ -79,7 +79,7 @@ You can use more drives if you add more transistors, wires and resistors. Each o
 > [!NOTE]
 > This tutorial shows how to use the scanner with DRV8825. You may choose to use A4988 instead, but this it not tested.
 
-For using a scanner at this project, you need to disassemble it. There is little chance you can get your scanner running afterwards, so disassembling is at your own risk. You could go looking for an old scanner at secondhand shops, because new scanners are expensive and very silent. Plus, the stepper motor wires need to be visible. After finding the right scanner, locate the stepper motor wires (DRV8825 only supports motors with 4 wires) and connect them to the DRV8825 using this scheme:
+For using a scanner at this project, you need to disassemble it. There is little chance you can get your scanner running afterwards, so disassembling is at your own risk. You could go looking for an old scanner at secondhand shops, because new scanners are expensive and very silent. Plus, the stepper motor wires need to be visible. After finding the right scanner, locate the stepper motor wires (DRV8825 only supports motors with 4 wires) and connect them to the DRV8825 using this diagram:
 
 <img height="387" alt="Scanner" src="https://github.com/user-attachments/assets/5b150f55-fd1d-405e-8fa8-ebd3430679bd" />
 
@@ -89,11 +89,11 @@ For using a scanner at this project, you need to disassemble it. There is little
 > [!NOTE]
 > Now before proceeding to the pico setup, you need to trim the potentiometer according to the motors rated current. Just set up all everything as in the image above, WITHOUT the STEP and DIR pin connected. You must also leave the stepper disconnected. Power 3.3V to the SLP pin (in addition to the other 3V3 powered pins) and 12V to the bottom rail to activate the driver. Connect voltage meter to the GROUND and the little potentiometer to measure the VREF. Make sure VREF is under 0.1V, and if it doesn't work you can also increase the VREF (by turning the potentiometer). Afterwards, disconnect the SLP from the 3.3V supply, connect the stepper wires and continue.
 
-Find a power source of 12 volts to power the breadboard's bottom power rail. The upper power rail only needs logic voltage of 3.3V (from the pico). Connect the orange wires to the pico's DRV8825-corresponding pins using this scheme:
+Find a power source of 12 volts to power the breadboard's bottom power rail. The upper power rail only needs logic voltage of 3.3V (from the pico). Connect the orange wires to the pico's DRV8825-corresponding pins using this diagram:
 
 <img height="342" alt="Pico2-pinout" src="https://github.com/user-attachments/assets/1d8f9d07-8aa7-44fe-8a65-4ad8c2378288" />
 
-If you are using two scanners, use another DRV8825 with the above scheme. Only change the pico's output pins to 'DRV8825 __2__ ...' instead of 'DRV8825 __1__ ...'.
+If you are using two scanners, use another DRV8825 with the above diagram. Only change the pico's output pins to 'DRV8825 __2__ ...' instead of 'DRV8825 __1__ ...'.
 
 
 Next, use the image below to connect the two scanner endstops to the pico. Each button has to be glued or mounted on the opposite sides of the scanner. When the reader head hits a button, it changes the direction. Without endstops, your scanner won't do that and hit the edge. Be careful and test multiple times if this part is set up correctly.
