@@ -25,7 +25,7 @@ We need linear non-vibrating movement for high-pitched sounds. Scanners are able
 > newer devices is at your own risk.
 
 <ol>
-	<li>Run the `setup.sh` script in order to install FloppIO.</li>
+	<li>Download the latest release (on your pi) and run the `setup.sh` script in order to install FloppIO.</li>
 	<li>At the following dialog, go to:</li>
 	<ol type="1">
 		<li>Interface Options</li>
@@ -46,9 +46,9 @@ We need linear non-vibrating movement for high-pitched sounds. Scanners are able
 
 Connect the first pico to your pi while pressing the on-board BOOTSEL button. If done correctly, the pico device should appear in file explorer.
 
-Go to `build` and move `floppy.elf` to your pico's mount folder. The pico will unmount itself and the code is loaded. Check if the green led is on after a second or two.
+Go to the floppio directory and move `floppy.elf` to your pico's mount folder. The pico will unmount itself and the code is loaded. Check if the green led is on after a second or two.
 
-Now, disconnect the first pico and connect the second as shown above. Repeat the loading process with `build/FloppIO/pico/scanner/scanner.elf`
+Now, disconnect the first pico and connect the second as shown above. Repeat the loading process with `scanner.elf`
 
 Now your two picos are flashed. Connect the ground wires of both picos to the Raspberry Pi 4. Then connect GPIO 14 (from the pi) to GPIO 1 (from both picos). If done correctly, you should now have the UART TX connected to the UART RXes from the picos.
 
