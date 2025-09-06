@@ -50,12 +50,10 @@ except OSError:
 
 print('Initialising...', end = '')
 driver.init() # Init the driver
-sleep(1)
 print('DONE')
 
 print('Resetting...', end = '')
 driver.reset() # Init the driver
-sleep(1)
 print('DONE')
 
 print('Starting up...', end = '')
